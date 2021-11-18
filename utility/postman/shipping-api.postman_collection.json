@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "e6256d72-c6ab-427f-9799-1f0eb1d6598b",
+		"name": "shipping-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "organization",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"type\": \"ORGANIZATION\",\r\n    \"id\": \"99f2535b-3f90-4758-8549-5b13c43a8504\",\r\n    \"code\": \"BOG\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/organization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"organization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "shipment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"SHIPMENT\",\r\n    \"referenceId\": \"S00001175\",\r\n    \"organizations\": [\"SEA\", \"BOG\", \"FMT\"],\r\n    \"transportPacks\": {\r\n      \"nodes\": [\r\n        {\r\n          \"totalWeight\": {\r\n            \"weight\": \"7.8\",\r\n            \"unit\": \"OUNCES\"\r\n          }\r\n        }\r\n      ]\r\n    }\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/shipment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"shipment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "organizations:id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/organizations/34f195b5-2aa1-4914-85ab-f8849f9b541a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"organizations",
+						"34f195b5-2aa1-4914-85ab-f8849f9b541a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "shipments:id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/shipments/S00001175",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"shipments",
+						"S00001175"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "weight aggregation",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"unit\": \"OUNCES\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/aggregate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"aggregate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
