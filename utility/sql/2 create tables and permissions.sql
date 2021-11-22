@@ -10,6 +10,7 @@ create table dbo.organizations (
 
 create table dbo.shipments (
     referenceid varchar(16) primary key,
+    timestamp varchar(40),
     organizations varchar(3)[]
 );
 

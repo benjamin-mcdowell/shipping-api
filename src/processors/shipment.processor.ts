@@ -32,15 +32,26 @@ export class ShipmentProcessor {
             response.message = validationResult.message;
             return response;
         }
-        
-        const shipment: Shipment = this.mapperService.mapShipmentRequestToModel(req);
-        const shipmentResult: ProcessResult = await this.databaseService.createOrUpdateShipmentRecord(shipment);
+  
+        const requestedShipment: Shipment = this.mapperService.mapShipmentRequestToModel(req);
+
+        // check if its newer than newest record    
+        const existingShipment: Shipment = await this.databaseService.retrieveShipmentById(requestedShipment.referenceid);
+
+        if((existingShipment != null || existingShipment != undefined) && requestedShipment.timestamp < existingShipment.timestamp)
+        {
+            response.status = HttpStatus.Unprocessable;
+            response.message = 'this record is older than the existing record';
+            return response;
+        }
+
+        const shipmentResult: ProcessResult = await this.databaseService.createOrUpdateShipmentRecord(requestedShipment);
 
         // only process transport packs if there are transport packs to process on this request
         let transportPackResult: ProcessResult = ProcessResult.Failure;
-        if(shipment.transportPacks.nodes.length > 0){
-            const transportPacks: TransportPack[] = this.mapperService.mapTransportPackDtoToModel(shipment.transportPacks);
-            transportPackResult = await this.databaseService.createOrUpdateTransportPackRecords(shipment.referenceid, transportPacks);
+        if(requestedShipment.transportPacks.nodes.length > 0){
+            const transportPacks: TransportPack[] = this.mapperService.mapTransportPackDtoToModel(requestedShipment.transportPacks);
+            transportPackResult = await this.databaseService.createOrUpdateTransportPackRecords(requestedShipment.referenceid, transportPacks);
         } else {
             transportPackResult = ProcessResult.Successful;
         }

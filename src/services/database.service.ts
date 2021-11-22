@@ -42,11 +42,11 @@ export class DatabaseService {
         const client = await pool.connect();
 
         const query = {
-            text: `insert into dbo.shipments (referenceid, organizations)
-                    values($1,$2) 
+            text: `insert into dbo.shipments (referenceid, organizations, timestamp)
+                    values($1,$2, $3) 
                     on conflict (referenceId) 
                     do update set organizations = excluded.organizations;`,
-            values: [shipment.referenceid, shipment.organizations]
+            values: [shipment.referenceid, shipment.organizations, shipment.timestamp]
             };
     
             let processResult = ProcessResult.Failure;
@@ -116,7 +116,7 @@ export class DatabaseService {
         const client = await pool.connect();
 
         const query = {
-            text: `select referenceid, organizations
+            text: `select referenceid, organizations, timestamp
                     from dbo.shipments
                     where referenceid = $1`,
             values: [referenceId]

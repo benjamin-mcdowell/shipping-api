@@ -1,4 +1,4 @@
-import { messages } from './messages'
+import { messages } from './messages-ex'
 import axios from 'axios'
 
 function main() {

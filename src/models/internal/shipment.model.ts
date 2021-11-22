@@ -5,4 +5,5 @@ export class Shipment {
     public referenceid: string;
     public organizations: string[];
     public transportPacks: RawTransportPacksDto;
+    public timestamp: string;
 }
